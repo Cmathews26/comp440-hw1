@@ -12,17 +12,17 @@ here; the words are yours.
 Give these to Claude before any analysis runs. One sentence each, plus one sentence on why you
 think so.
 
-**(1) A movie you know well, and what its three most-used tags will be:** XXXX
+**(1) A movie you know well, and what its three most-used tags will be:** Inglorious Basterds, Dark-Comedy, Action, Gory
 
-**(1) Why you think so:** XXXX
+**(1) Why you think so:** Because it's a Quentin Tarantino film, who is known for his gory, over the top, dark comedies.
 
-**(2) Out of every 100 people who rated movies here, how many ever added a tag?** XXXX
+**(2) Out of every 100 people who rated movies here, how many ever added a tag?** 15
 
-**(2) Why you think so:** XXXX
+**(2) Why you think so:** Most people, similarly to ratings, are not going to go out of their way to tag or rate a movie after watching it.
 
-**(3) Can one person's tags take over a movie's tag list? Yes or no:** XXXX
+**(3) Can one person's tags take over a movie's tag list? Yes or no:** Yes
 
-**(3) Why you think so:** XXXX
+**(3) Why you think so:** If there's one person who's super empowered to tag every movie they watch multiple times, then they'll have greater influence of the tagging overall.
 
 ## Part 1. Whose data is this?
 
