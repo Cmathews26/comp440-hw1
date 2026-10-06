@@ -7,7 +7,7 @@ summarized as one-liners.
 <!-- transcript-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 | 2026-10-06T16:17:14.621Z -->
 ## Session `194c18ca` — 2026-10-06 16:17:14
 
-*4 user turns. Tool outputs and reasoning omitted.*
+*10 user turns. Tool outputs and reasoning omitted.*
 
 **User:**
 *(ran `/login`)*
@@ -31,6 +31,95 @@ What name do you want on the writeup?
 Colin Mathews
 
 **Claude:**
+- 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
+- 🔧 `Bash` — Fill name/date, dump transcript, commit
+Setup is finished, and I committed it as `Name and date`.
+
+The top of `WRITEUP.md` now reads:
+
+```
+**Name:** Colin Mathews
+**Date:** 2026-10-06
+```
+
+Next is Part 0: three predictions, each with a reason, in your own words. They get committed before any analysis runs. You say each one, and I write it into its slot exactly as you say it.
+
+The first slot is "(1) A movie you know well, and what its three most-used tags will be."
+
+Which movie do you pick, and what do you think its three most-used tags will be?
+
+**User:**
+Inglorious Basterds, Dark-Comedy, Action, Gory
+
+**Claude:**
+- 🔧 `Bash` — Write prediction 1 into its slot
+I wrote your prediction into the "(1) A movie you know well, and what its three most-used tags will be" slot, exactly as you said it. It reads:
+
+**(1) A movie you know well, and what its three most-used tags will be:** Inglorious Basterds, Dark-Comedy, Action, Gory
+
+The next slot is "(1) Why you think so." It needs one sentence.
+
+Why do you expect those three tags to come out on top?
+
+**User:**
+Because it's a Quentin Tarantino film, who is known for his gory, over the top, dark comedies.
+
+**Claude:**
+- 🔧 `Bash` — Write reason 1 into its slot
+I wrote your reason into the "(1) Why you think so" slot, unchanged. It reads:
+
+**(1) Why you think so:** Because it's a Quentin Tarantino film, who is known for his gory, over the top, dark comedies.
+
+The next slot is "(2) Out of every 100 people who rated movies here, how many ever added a tag?" It needs one number, given as a guess before you look at any data.
+
+Out of 100 raters, how many do you think ever added a tag?
+
+**User:**
+15
+
+**Claude:**
+- 🔧 `Bash` — Write prediction 2 into its slot
+I wrote your guess into the "(2) Out of every 100 people who rated movies here, how many ever added a tag?" slot. It reads:
+
+**(2) Out of every 100 people who rated movies here, how many ever added a tag?** 15
+
+The next slot is "(2) Why you think so." It needs one sentence.
+
+Why did you guess 15?
+
+**User:**
+Most people, similarly to ratings, are not going to go out of their way to tag or rate a movie after watching it.
+
+**Claude:**
+- 🔧 `Bash` — Write reason 2 into its slot
+I wrote your reason into the "(2) Why you think so" slot, unchanged. It reads:
+
+**(2) Why you think so:** Most people, similarly to ratings, are not going to go out of their way to tag or rate a movie after watching it.
+
+The next slot is "(3) Can one person's tags take over a movie's tag list? Yes or no." It needs a yes or a no, in one sentence.
+
+Can one person's tags take over a movie's tag list?
+
+**User:**
+Yes
+
+**Claude:**
+- 🔧 `Bash` — Write prediction 3 into its slot
+I wrote your answer into the "(3) Can one person's tags take over a movie's tag list? Yes or no" slot. It reads:
+
+**(3) Can one person's tags take over a movie's tag list? Yes or no:** Yes
+
+The last Part 0 slot is "(3) Why you think so." It needs one sentence.
+
+Why do you think one person's tags can take over a movie's tag list?
+
+**User:**
+If there's one person who's super empowered to tag every movie they watch multiple times, then they'll have greater influence of the tagging overall.
+
+**Claude:**
+- 🔧 `Bash` — Write reason 3 into its slot
+- 🔧 `Skill` — checkpoint
+- 🔧 `Bash` — Run the full check script
 - 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
 
 <!-- end-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 -->
