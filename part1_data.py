@@ -34,19 +34,57 @@ No figures are required in Part 1. `WRITEUP.md` takes one interesting thing from
 rule differs from yours, and your two checks.
 """
 
-from load_data import load_all
+import gzip
+
+from load_data import DATA, load_all
+
+ALL_RATINGS = 32_000_204   # every rating in MovieLens 32M
+
+
+def three(s):
+    """Median, minimum and maximum of a Series, as one line."""
+    return f"median {s.median():,.0f}, min {s.min():,}, max {s.max():,}"
 
 
 def part1_data(ratings, tags, movies, links):
-    print("part 1 unimplemented")  # delete this line when you start
-
     print("== (a) how much ==")
+    print(f"ratings.csv.gz  {len(ratings):>10,} rows")
+    print(f"tags.csv.gz     {len(tags):>10,} rows")
+    print(f"movies.csv      {len(movies):>10,} rows")
+    print(f"links.csv       {len(links):>10,} rows")
+    print(f"distinct users (ratings)   {ratings['userId'].nunique():,}")
+    print(f"distinct movies (ratings)  {ratings['movieId'].nunique():,}")
+    print(f"share of all {ALL_RATINGS:,} MovieLens ratings: {len(ratings) / ALL_RATINGS:.1%}")
 
     print("== (b) spread ==")
+    print("ratings per user:          ", three(ratings.groupby("userId").size()))
+    print("ratings per movie:         ", three(ratings.groupby("movieId").size()))
+    print("tag applications per user: ", three(tags.groupby("userId").size()))
+    print("tag applications per movie:", three(tags.groupby("movieId").size()))
+    raters = set(ratings["userId"].unique())
+    taggers = raters & set(tags["userId"].unique())
+    print(f"users who rated anything and ever applied a tag: "
+          f"{len(taggers):,} of {len(raters):,} ({len(taggers) / len(raters):.1%})")
 
     print("== (c) top tags, two ways ==")
+    # Raw tag strings, exactly as people typed them: "Cult classic" and "cult classic" are two rows.
+    by_tag = tags.groupby("tag").agg(applications=("userId", "size"), users=("userId", "nunique"))
+    for col in ["applications", "users"]:
+        print(f"-- top 20 by {col} --")
+        print(by_tag.sort_values(col, ascending=False).head(20).to_string())
 
     print("== (d) two checks ==")
+    # Check 1: the share, from the raw file's lines rather than the loaded frame.
+    with gzip.open(DATA / "ratings.csv.gz", "rt") as f:
+        raw_rows = sum(1 for _ in f) - 1   # minus the header line
+    claimed, checked = len(ratings) / ALL_RATINGS, raw_rows / ALL_RATINGS
+    print(f"share of 32M ratings: (a) {claimed:.4%}  raw file lines {checked:.4%}  "
+          f"{'MATCH' if raw_rows == len(ratings) else 'DIFFER'}")
+    # Check 2: taggers, by filtering tag rows to users who rated, then counting distinct users.
+    rated_tag_rows = tags[tags["userId"].isin(ratings["userId"])]
+    n_check = rated_tag_rows["userId"].nunique()
+    print(f"users who rated and tagged: (b) {len(taggers):,}  filtered tag rows {n_check:,}  "
+          f"{'MATCH' if n_check == len(taggers) else 'DIFFER'}")
 
 
 if __name__ == "__main__":

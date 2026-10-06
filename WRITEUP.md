@@ -28,17 +28,17 @@ think so.
 
 Code: `part1_data.py`.
 
-**My rule for cutting 32 million ratings to 5 million** (written before reading `data/make_compact.py`)**:** XXXX
+**My rule for cutting 32 million ratings to 5 million** (written before reading `data/make_compact.py`)**:** I think that I would just pick out movies where Thriller is one of the more common tags.
 
-**One rule I considered and rejected, and why:** XXXX
+**One rule I considered and rejected, and why:** I rejected a rule of picking movies by a different genre as I felt like Thrillers would be roughly 10-15% of all movies.
 
-**One interesting thing from `data/README.md`:** XXXX
+**One interesting thing from `data/README.md`:** Just how much more flushed out the rule in data/README is compared to the rule I made. Really, based on my estimation in part 0, I should have just made my rule about whether people tagged a movie or not.
 
-**How the script's rule differs from mine, and what each keeps that the other drops:** XXXX
+**How the script's rule differs from mine, and what each keeps that the other drops:** Its rule has far more filtering involved and is more of an algorithm whereas my rule maintains simplicity.
 
-**First check. Which of Claude's numbers, the different route you took, and whether it matched** (one good target: 6 tags are the literal text `NA`, which pandas drops unless told not to)**:** XXXX
+**First check. Which of Claude's numbers, the different route you took, and whether it matched** (one good target: 6 tags are the literal text `NA`, which pandas drops unless told not to)**:** The 15.6% share. Count the rows directly from the raw data file to ensure that nothing got dropped or duplicated. MATCH
 
-**Second check. Which of Claude's numbers, the different route you took, and whether it matched:** XXXX
+**Second check. Which of Claude's numbers, the different route you took, and whether it matched:** The number of taggers. Keep the tag rows where a user also appears in ratings then count number of distinct users. MATCH
 
 ## Part 2. What tags best describe a movie?
 
