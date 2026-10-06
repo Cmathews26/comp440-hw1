@@ -7,7 +7,7 @@ summarized as one-liners.
 <!-- transcript-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 | 2026-10-06T16:17:14.621Z -->
 ## Session `194c18ca` — 2026-10-06 16:17:14
 
-*11 user turns. Tool outputs and reasoning omitted.*
+*22 user turns. Tool outputs and reasoning omitted.*
 
 **User:**
 *(ran `/login`)*
@@ -176,5 +176,184 @@ Are you ready for me to commit Part 0?
 
 **User:**
 Yes
+
+**Claude:**
+- 🔧 `Bash` — Update transcript and commit Part 0
+I committed Part 0 as `Part 0 predictions`. Your three predictions are now locked in ahead of any analysis. The working tree is clean, and I can push to GitHub whenever you'd like.
+
+Part 1 is next. The script for it is `part1_data.py`.
+
+The first slot is "My rule for cutting 32 million ratings to 5 million." You write it before anyone opens `data/make_compact.py`, the script that actually made the cut. Think of a rule that takes the full MovieLens 32M and leaves a 5-million-rating subset.
+
+What rule would you use to make that cut?
+
+**User:**
+I think that I would just pick out movies where Thriller is one of the more common tags .
+
+**Claude:**
+- 🔧 `Bash` — Write the Part 1 rule into its slot
+I wrote your rule into the "My rule for cutting 32 million ratings to 5 million" slot. The only change was dropping the space before the period. It reads:
+
+**My rule for cutting 32 million ratings to 5 million** (written before reading `data/make_compact.py`)**:** I think that I would just pick out movies where Thriller is one of the more common tags.
+
+The next slot is "One rule I considered and rejected, and why." It needs a different way of making the cut, plus your reason for not using it.
+
+What other rule did you consider, and why did you reject it?
+
+**User:**
+I rejected a rule of picking movies by a different genre as I felt like Thrillers would be roughly 10-15% of all movies.
+
+**Claude:**
+- 🔧 `Bash` — Write the rejected rule into its slot
+I wrote your answer into the "One rule I considered and rejected, and why" slot, unchanged. It reads:
+
+**One rule I considered and rejected, and why:** I rejected a rule of picking movies by a different genre as I felt like Thrillers would be roughly 10-15% of all movies.
+
+Your rule is now on disk, so it's safe to look at how the real cut was made. The next slot is "One interesting thing from `data/README.md`." That file describes how the 5-million-rating subset was built.
+
+Open `data/README.md` and read through it. I can also print it here if you'd like. What is one thing in it that you found interesting?
+
+**User:**
+Just how much more flushed out the rule in data/README is compared to the rule I made. Really, based on my estimation in part 0, I should have just made my rule about whether people tagged a movie or not.
+
+**Claude:**
+- 🔧 `Bash` — Write README observation into its slot
+I wrote your answer into the "One interesting thing from `data/README.md`" slot, unchanged. It reads:
+
+**One interesting thing from `data/README.md`:** Just how much more flushed out the rule in data/README is compared to the rule I made. Really, based on my estimation in part 0, I should have just made my rule about whether people tagged a movie or not.
+
+Your rule stays in its slot as you first wrote it. That second sentence is a later thought, and it's labelled as one simply by sitting in this slot.
+
+The next slot is "How the script's rule differs from mine, and what each keeps that the other drops." For that, read `data/make_compact.py`, the script that actually did the cut. I can open it with you and say what each line does if that helps.
+
+How does its rule differ from yours, and what does each one keep that the other drops?
+
+**User:**
+Its rule has far more filtering involved and is more of an algorithm whereas my rule maintains simplicity.
+
+**Claude:**
+- 🔧 `Bash` — Write the rule comparison into its slot
+I wrote your answer into the "How the script's rule differs from mine" slot, unchanged. It reads:
+
+**How the script's rule differs from mine, and what each keeps that the other drops:** Its rule has far more filtering involved and is more of an algorithm whereas my rule maintains simplicity.
+
+That covers how the two rules differ. The slot also asks a second thing: what each rule keeps that the other drops. That means which movies, ratings, users or tags make it through one cut but not the other.
+
+What does the script's rule keep that yours would drop, and what does yours keep that the script's would drop? I'll add your answer after what's already in the slot.
+
+**User:**
+That answers the question. I said that my rule keeps simplicity and drops multi layered algorithmic approaches and that its rule drops hypersimplicity compared to mine
+
+**Claude:**
+Understood. The slot stays as you wrote it.
+
+The last two Part 1 slots are the checks. Each one takes a number that `part1_data.py` prints and recomputes it a different way. I'll look at what the script asks for before running anything.
+- 🔧 `Bash` — Show Part 1 script and handout section
+- 🔧 `Bash` — Show the data loader
+- 🔧 `Edit` — /Users/colinmathews/comp440-hw1/part1_data.py
+I wrote sections (a) to (c) of `part1_data.py`. I haven't run it yet. Here is what each section computes:
+
+- **(a)** Row counts for the four files, distinct users and movies, and the share of the 32,000,204 MovieLens ratings that this subset holds.
+- **(b)** Median, minimum and maximum of ratings per user, ratings per movie, tags per user and tags per movie. It also counts how many raters ever applied a tag.
+- **(c)** The top 20 tags ranked by number of applications, then by number of distinct users. Both rankings use the raw tag strings, so `Cult classic` and `cult classic` count as two separate tags.
+
+Section (d) is your two checks. The script's own instructions say to choose them before anything runs. Each check takes one claim from (a) to (c) and recomputes it a different way, without reusing the code above. The script lists some targets: the 15.6% share, the 14,019 taggers, the least-rated kept movie having 83 ratings, and the six `NA` tags.
+
+Which two claims do you want to check, and how would you compute each one?
+
+**User:**
+I want to check the 15.6% share and the number of taggers
+
+**Claude:**
+Those are your two targets: the 15.6% share and the 14,019 taggers.
+
+Each check also needs a route of its own. That means a different way of getting the number that doesn't reuse the code in (a) or (b). For example, it could start from a different file, count with a different method, or come at the number from the other side. The route is your choice, and the slot records it.
+
+Let's take the share first. How would you recompute the 15.6% without reusing the `len(ratings) / 32,000,204` line in (a)?
+
+**User:**
+Count the rows directly from the raw data file to ensure that nothing got dropped or duplicated.
+
+**Claude:**
+- 🔧 `Edit` — /Users/colinmathews/comp440-hw1/part1_data.py
+- 🔧 `Edit` — /Users/colinmathews/comp440-hw1/part1_data.py
+I wrote check 1 into section (d). It opens `data/ratings.csv.gz` directly with Python's `gzip` module, so pandas isn't involved. It counts the lines, subtracts one for the header, and divides by 32,000,204. It then prints both shares next to each other, with MATCH if the row counts are equal and DIFFER if not. I haven't run it.
+
+Both routes use the same 32,000,204 denominator. That means this check tests the numerator, the 5 million rows, and not the 32M total.
+
+Now the second target, the 14,019 users who applied a tag. Section (b) gets its count by intersecting the set of users in `ratings` with the set of users in `tags`. How would you get that number a different way?
+
+**User:**
+Keep the tag rows where a user also appears in ratings then count number of distinct users.
+
+**Claude:**
+- 🔧 `Edit` — /Users/colinmathews/comp440-hw1/part1_data.py
+I wrote check 2 into section (d). It keeps the tag rows whose `userId` appears anywhere in `ratings`, then counts the distinct users in those rows. It prints that count next to the count from (b), with MATCH or DIFFER.
+
+The script is now complete, but it hasn't run yet. Its output will also bear on your Part 0 guess of 15 taggers per 100 raters, since section (b) prints that share.
+
+Before I run it, what do you expect the two checks to show? Do you think each one will MATCH or DIFFER?
+
+**User:**
+I think the first might differ but the second will match
+
+**Claude:**
+- 🔧 `Bash` — Run the Part 1 script
+Here is the full output of `uv run python part1_data.py`:
+
+```
+== (a) how much ==
+ratings.csv.gz   5,000,030 rows
+tags.csv.gz      1,244,210 rows
+movies.csv           4,000 rows
+links.csv            4,000 rows
+distinct users (ratings)   23,443
+distinct movies (ratings)  4,000
+share of all 32,000,204 MovieLens ratings: 15.6%
+== (b) spread ==
+ratings per user:           median 103, min 20, max 3,241
+ratings per movie:          median 685, min 83, max 14,777
+tag applications per user:  median 5, min 1, max 287,198
+tag applications per movie: median 158, min 2, max 6,688
+users who rated anything and ever applied a tag: 14,019 of 23,443 (59.8%)
+== (d) two checks ==
+share of 32M ratings: (a) 15.6250%  raw file lines 15.6250%  MATCH
+users who rated and tagged: (b) 14,019  filtered tag rows 14,019  MATCH
+```
+
+Section (c) printed the two top-20 tag lists. These are the raw strings, so `Cult classic` and `cult classic` would count as two separate rows. The first rows of each list:
+
+```
+by applications: sci-fi 10075/2566, atmospheric 8592/2051, action 7444/1744 ...
+by users:        sci-fi 10075/2566, atmospheric 8592/2051, visually appealing 6585/1989 ...
+```
+
+**This contradicts Part 0 prediction (2).** You wrote 15 per 100. Section (b) prints 59.8%. Your prediction stays as written. The "Predictions revisited" slot near the end of the writeup is where you deal with the miss.
+
+**One thing worth a second look:** both sides of check 2 start from the same `tags` frame, which `load_tags()` loads. That means a problem in how the tags were read would show up on both sides.
+
+You expected check 1 to DIFFER, and it printed MATCH. What do you want the "First check" slot to say: which number you checked, the route you took, and whether it matched?
+
+**User:**
+I want it to say MATCH
+
+**Claude:**
+- 🔧 `Bash` — Write first check into its slot
+I filled the "First check" slot with three things you said in separate messages: the target, the route, and now the result. I only changed capitalisation and punctuation. It reads:
+
+**First check. Which of Claude's numbers, the different route you took, and whether it matched:** The 15.6% share. Count the rows directly from the raw data file to ensure that nothing got dropped or duplicated. MATCH
+
+If you meant the slot to hold only "MATCH", tell me and I'll cut it back to that.
+
+The last Part 1 slot is "Second check." From earlier messages I have your target, the number of taggers, and your route: "Keep the tag rows where a user also appears in ratings then count number of distinct users." What should the slot say about whether it matched?
+
+**User:**
+Sounds good on both fronts
+
+**Claude:**
+- 🔧 `Bash` — Write second check into its slot
+- 🔧 `Bash` — Write second check into its slot
+- 🔧 `Bash` — Run the full check script
+- 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
 
 <!-- end-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 -->
