@@ -44,9 +44,9 @@ Code: `part1_data.py`.
 
 Code: `part2_tags.py`.
 
-**My movie, and why I picked it:** XXXX
+**My movie, and why I picked it:** Inglourious Basterds (2009). Same movie because I like that movie.
 
-**Its most misleading tag in the count-ordered list, and why it misleads:** XXXX
+**Its most misleading tag in the count-ordered list, and why it misleads:** I don't think any of the tags are misleading as they all accurately describe the film, but I'd say black comedy and dark comedy are redundant and could be combined into one tag.
 
 **What I learned about how MovieLens collects ratings and tags, from rating and tagging my movie myself (about 100 words):** XXXX
 
@@ -55,24 +55,24 @@ Code: `part2_tags.py`.
 One sentence on the figure written before you saw it and one after. The two tables are where the
 details below come from. Say which script made them.
 
-**The figure, when the tags and the ratings arrived. What I expected:** XXXX
-**The figure, what it shows:** XXXX
+**The figure, when the tags and the ratings arrived. What I expected:** I expect the ratings and tags to go up sharply after release then plateau.
+**The figure, what it shows:** There was a huge spike in 2021 of both ratings and tags.
 
-**Two interesting details I learned up close that the counts did not show:** XXXX
+**Two interesting details I learned up close that the counts did not show:** The 9.2% share of movies for user 78213 is surprising, and that dark comedy isn't in the top 3.
 
-**Anything up close that contradicted something I had already written down. Which one, what the data showed, and what you now think. Or "nothing yet":** XXXX
+**Anything up close that contradicted something I had already written down. Which one, what the data showed, and what you now think. Or "nothing yet":** Nothing yet
 
 ### My definition
 
-**My `score(movie, tag)`** (one or two sentences, precise enough that a classmate could code it)**:** XXXX
+**My `score(movie, tag)`** (one or two sentences, precise enough that a classmate could code it)**:** Find tags where each user can only count once for a given tag and then take the highest occuring tag and take that as your best, then descend from there.
 
-**One definition I considered and rejected, and why:** XXXX
+**One definition I considered and rejected, and why:** To me, this is the only way to determine the 'best' tag. The nature of the tags/ratings system is community-driven, so why turn away from the community when trying to find the best tags? What even constitutes 'best?'
 
-**Which tags I merged as the same tag, which I kept apart, and why:** XXXX
+**Which tags I merged as the same tag, which I kept apart, and why:** Strings with the same letters but different capitalization should count as the same strings, as well as tags with direct synonyms like black comedy and dark comedy. Also, if a string is part of a whole it should be extrapolated into the whole as the same string. If one string contains part of a name or other proper noun, it should be assumed that they're talking about the entire name or proper noun. Capitalized should be names. If you see a tag come up over and over that is part of a capitalized name but is listed as a separate string, that would need to be remedied. Rule 3 should ensure that specifically war should not go into world war II. "quinten tarantino" should always correct into Quentin Tarantino. Charles and charlie should be charlie, crime sprees and thrill crime can merge, song kang-ho is the correct name, author: yann martel is correct, cuban food and food truck can both be allowed if they are in the same movie. Crime can be its own category, thrill crime can go into crime sprees, food can stay on its own, irish can stay on its own. Disney can be on its own. I used the 66% test to cover a large portion of applications while mitigating the extremes. I started with my 3 rules and then went case by case for a collection of ties.
 
 **Why my definition, in about 150 words. Name one thing it gains and one thing it loses:**
 
-XXXX
+I chose this definition because I wanted to eliminate repetition of ideas in the tagging of these movies. I think one thing it gains is the hyper-specific filtering of certain tags that thwarted my umbrella rules for tags. This, however, is also its biggest downside because the odds are that I couldn't apply this set of rules to any dataset of films, and that it really only works well with this movie subset because I kind of brute forced the last handful of tag ties I had.
 
 ### The judge
 
@@ -86,7 +86,7 @@ XXXX
 
 **My own order of the ten most-used tags, written before looking at any data: my movie from step 1, then my nine others from step 4:**
 
-XXXX
+68157: Quentin Tarantino, dark comedy, World War II, alternate history, black comedy, satire, great acting, Brad Pitt, Christoph Waltz, visually appealing
 
 **One criterion I considered for the judge and rejected, and why** (the one I used is in `judge/criterion.md`)**:** XXXX
 
