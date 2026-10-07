@@ -7,7 +7,7 @@ summarized as one-liners.
 <!-- transcript-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 | 2026-10-06T16:17:14.621Z -->
 ## Session `194c18ca` — 2026-10-06 16:17:14
 
-*168 user turns. Tool outputs and reasoning omitted.*
+*169 user turns. Tool outputs and reasoning omitted.*
 
 **User:**
 *(ran `/login`)*
@@ -2920,5 +2920,23 @@ I wrote both, unchanged:
 `WRITEUP.md` has no `XXXX` left. Next I'm running the Part 4 checkpoint.
 - 🔧 `Bash` — Run run_all.py and the transcript dump
 - 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
+Part 4 checkpoint:
+
+1. **`uv run python run_all.py`** exits cleanly with code 0. The end of the output reads:
+   ```
+   == what is missing ==
+     nothing in a part you have reached.
+
+   0 missing in the parts you have reached.
+   ```
+2. **`WRITEUP.md`**: I read Part 4 in full. All seven slots are filled.
+3. **Transcript**: `1 session(s) found; this session in TRANSCRIPT.md: yes.`
+
+After this commit I'll run the pre-submission checks: git status and log, the files that need to be committed, and both criterion files.
+
+Ready for me to commit Part 4 as `Part 4 done`?
+
+**User:**
+Yes
 
 <!-- end-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 -->
