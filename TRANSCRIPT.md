@@ -7,7 +7,7 @@ summarized as one-liners.
 <!-- transcript-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 | 2026-10-06T16:17:14.621Z -->
 ## Session `194c18ca` — 2026-10-06 16:17:14
 
-*111 user turns. Tool outputs and reasoning omitted.*
+*113 user turns. Tool outputs and reasoning omitted.*
 
 **User:**
 *(ran `/login`)*
@@ -1986,5 +1986,64 @@ I would use a skill to send out networking emails because they're all more or le
 - 🔧 `Bash` — Run run_all.py and show the tail
 - 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
 - 🔧 `Bash` — Run run_all.py and show headers and missing list
+- 🔧 `Bash` — Update the session transcript
+I added your sentence to the end of the "Why a skill" slot, unchanged. It reads:
+
+> A prompt or script are instructions with no memory whereas a skill can repeat tasks with minor differences or with some variation. I would use a skill to send out networking emails because they're all more or less the same with some slight variation.
+
+Every Part 2 slot is now filled, so I ran the end-of-part checkpoint.
+
+**1. `uv run python run_all.py`** ran sections (a)–(d) of Part 1 and sections (1)–(6) of Part 2, about 1,600 lines in all. It exits with code 1. The end of the output reads:
+
+```
+== what is missing ==
+  part 3: not started (part3_users.py).
+  Predictions revisited: Which of my three predictions were wrong, and what I make of each miss is still XXXX.
+  part 3: not started, 9 slots still XXXX.
+  part 4: not started, 7 slots still XXXX.
+
+1 missing in the parts you have reached.
+```
+
+**2. `WRITEUP.md`.** I read the whole file. No Part 2 slot is `XXXX`. Three slots have something incomplete:
+- "One definition I considered and rejected" doesn't name an alternative.
+- "One criterion I considered for the judge and rejected" doesn't name an alternative.
+- "What happens when I run `/judge`" doesn't cover the first check or the CSV.
+
+**3. Transcript.** `1 session(s) found; this session in TRANSCRIPT.md: yes.`
+
+The one item the script still counts as missing is "Predictions revisited." It needs to be filled before Part 2 can be committed as done. Results so far went against two of your Part 0 predictions:
+- **(1)** You predicted the top three tags would be Dark-Comedy, Action and Gory.
+- **(2)** You predicted 15 taggers per 100 raters. Part 1 printed 59.8%.
+
+Which of your three predictions were wrong, and what do you make of each miss?
+
+**User:**
+The top three tags and my 15/100 taggers per raters were wrong. I just didn't have a real fram of reference for these predictions.
+
+**Claude:**
+- 🔧 `Bash` — Write predictions revisited; recheck missing
+I wrote your answer into the "Predictions revisited" slot. The only change was fixing "fram" to "frame". It reads:
+
+> The top three tags and my 15/100 taggers per raters were wrong. I just didn't have a real frame of reference for these predictions.
+
+I reran `run_all.py`. It now reports:
+
+```
+== what is missing ==
+  part 3: not started (part3_users.py).
+  part 3: not started, 9 slots still XXXX.
+  part 4: not started, 7 slots still XXXX.
+  nothing in a part you have reached.
+
+0 missing in the parts you have reached.
+```
+
+The three items I flagged in the checkpoint are still incomplete. Neither "considered and rejected" slot names an alternative, and the `/judge` slot doesn't cover the first check or the CSV. They're not blank, so the script doesn't count them as missing. Whether to add to them is your call.
+
+Are you ready for me to commit Part 2 as `Part 2 done`?
+
+**User:**
+Yes
 
 <!-- end-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 -->
