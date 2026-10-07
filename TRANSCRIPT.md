@@ -7,7 +7,7 @@ summarized as one-liners.
 <!-- transcript-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 | 2026-10-06T16:17:14.621Z -->
 ## Session `194c18ca` — 2026-10-06 16:17:14
 
-*105 user turns. Tool outputs and reasoning omitted.*
+*111 user turns. Tool outputs and reasoning omitted.*
 
 **User:**
 *(ran `/login`)*
@@ -1892,5 +1892,99 @@ Do you want me to commit all of that now?
 
 **User:**
 Yes
+
+**Claude:**
+- 🔧 `Bash` — Commit Part 2 judge and viewer work
+I committed it all as `Part 2 steps 5 and 6: scores, judge run, agreement, viewer fixes, disagreements`. The working tree is clean.
+
+The next slot is "How the judge skill is built: the files it is made of and what each one does (about 150 words)." The files involved are:
+
+- `.claude/skills/judge/SKILL.md`, the skill itself
+- `judge/README.md`
+- `judge/system.md`
+- `judge/criterion.md`
+- `judge/judge.py`
+- `judge/movies.csv`
+- `judge/vocabulary.txt`
+
+If you want, I can open any of these with you and explain what a particular line does. The description in the slot has to be yours.
+
+Which file do you want to look at first? Or, if you've already read them, how would you describe the way the skill is built?
+
+**User:**
+The judhe sends each movie to its own isolated Claude session with a fixed system prompt plus my criterion as a user prompt, and the movie's title/year/genre as well as its vocabulary tags in alphabetical order without counts. It goes through and asks for a 1-5 rating for each tag then goes back through and re asks if any scores are missing.
+
+**Claude:**
+- 🔧 `Bash` — Write the how-built slot
+I wrote your answer into the "How the judge skill is built" slot. I fixed the typo "judhe" and changed nothing else. It reads:
+
+> The judge sends each movie to its own isolated Claude session with a fixed system prompt plus my criterion as a user prompt, and the movie's title/year/genre as well as its vocabulary tags in alphabetical order without counts. It goes through and asks for a 1-5 rating for each tag then goes back through and re asks if any scores are missing.
+
+This mostly describes what happens during a run. That's closer to what the next slot, "What happens when I run `/judge`," asks for. The "how it's built" slot asks for the files and what each one does, and your answer doesn't name any files yet.
+
+Do you want to move this text to the `/judge` slot and give a new answer about the files here, or keep it where it is and add the files to it?
+
+**User:**
+ADd this to the /judge slot
+
+**Claude:**
+- 🔧 `Bash` — Move text to the /judge slot
+I moved your text to the "What happens when I run `/judge`" slot and set "How the judge skill is built" back to blank. Here are both slots now:
+
+> **How the judge skill is built:** XXXX
+>
+> **What happens when I run `/judge`, from the first check to the CSV:** The judge sends each movie to its own isolated Claude session with a fixed system prompt plus my criterion as a user prompt, and the movie's title/year/genre as well as its vocabulary tags in alphabetical order without counts. It goes through and asks for a 1-5 rating for each tag then goes back through and re asks if any scores are missing.
+
+The `/judge` slot's label asks you to go "from the first check to the CSV." Your text starts at the sessions and ends at the re-ask. You can add the start and the end later.
+
+Now back to "How the judge skill is built." The files are `SKILL.md`, `README.md`, `system.md`, `criterion.md`, `judge.py`, `movies.csv` and `vocabulary.txt`.
+
+What does each one do?
+
+**User:**
+README is a guide to the judge; system.md is the fixed system prompt that tells Claude to apply criteria, criterion.md is my definition of what best describes a movie, judge.py is the loop that runs the judge itself, movies.csv is the 100 movies that the judge rates, and vocabulary.txt is the list of tags.
+
+**Claude:**
+- 🔧 `Bash` — Write the how-built slot
+I wrote your answer into the "How the judge skill is built" slot, unchanged. It reads:
+
+> README is a guide to the judge; system.md is the fixed system prompt that tells Claude to apply criteria, criterion.md is my definition of what best describes a movie, judge.py is the loop that runs the judge itself, movies.csv is the 100 movies that the judge rates, and vocabulary.txt is the list of tags.
+
+The one file you didn't mention is `.claude/skills/judge/SKILL.md`, which is the skill itself. If you want to add it, I can open it with you.
+
+The last Part 2 slot is "Why a skill: what a skill like this gives you that a script or a prompt alone does not, and where you would use one next (about 100 words)."
+
+What does a skill give you that a script or a prompt alone doesn't, and where would you use one next?
+
+**User:**
+A prompt or script are instructions with no memory whereas a skill can repeat tasks with minor differences or with some variation.
+
+**Claude:**
+- 🔧 `Bash` — Write the why-a-skill slot
+I wrote your answer into the "Why a skill" slot, unchanged. It reads:
+
+> A prompt or script are instructions with no memory whereas a skill can repeat tasks with minor differences or with some variation.
+
+That covers what a skill gives you. The slot also asks where you would use one next.
+
+Where would you use a skill next?
+
+**User:**
+In the context of this asssignment or in general>
+
+**Claude:**
+The slot doesn't say, so either one works. "Where you would use one next" can be a later step in this assignment, another class, or something outside school entirely. Choose whichever one you'd actually reach for.
+
+Where would you use a skill next?
+
+**User:**
+I would use a skill to send out networking emails because they're all more or less the same with some slight variation
+
+**Claude:**
+- 🔧 `Bash` — Append to the why-a-skill slot
+- 🔧 `Skill` — checkpoint
+- 🔧 `Bash` — Run run_all.py and show the tail
+- 🔧 `Read` — /Users/colinmathews/comp440-hw1/WRITEUP.md
+- 🔧 `Bash` — Run run_all.py and show headers and missing list
 
 <!-- end-session: 194c18ca-6beb-4fc6-987c-79736acaf5d5 -->
