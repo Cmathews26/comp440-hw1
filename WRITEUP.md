@@ -160,39 +160,71 @@ and no numbering, the movieId first and the rating last, as in `296, Pulp Fictio
 
 **My 20 ratings:**
 
-XXXX
+58559, Dark Knight, The (2008), 5.0
+1213, Goodfellas (1990), 4.5
+79132, Inception (2010), 4.5
+68157, Inglourious Basterds (2009), 4.5
+2028, Saving Private Ryan (1998), 4.0
+1704, Good Will Hunting (1997), 4.0
+55820, No Country for Old Men (2007), 4.0
+109487, Interstellar (2014), 4.0
+923, Citizen Kane (1941), 4.0
+6650, Kind Hearts and Coronets (1949), 3.5
+187717, Won't You Be My Neighbor? (2018), 3.5
+6936, Elf (2003), 3.5
+176, Living in Oblivion (1995), 3.0
+4329, Rio Bravo (1959), 3.0
+5027, Another 48 Hrs. (1990), 2.5
+2034, Black Hole, The (1979), 2.0
+4167, 15 Minutes (2001), 2.0
+2163, Attack of the Killer Tomatoes! (1978), 1.5
+1981, Friday the 13th Part VIII: Jason Takes Manhattan (1989), 1.0
+427, Boxing Helena (1993), 0.5
 
 **My `score(user, tag)`, in a sentence, and why I started there (about 100 words):**
 
-XXXX
+Score takes the top 20 tags from a user's favorite movies (3.5 rating or higher) and ranks them by prevalence in those movies. I started there because it made the most sense to me that tags prevalent in people's favorite movies would be their highest rated tags. My personal score(user, tag) is pretty accurate with what I would say for myself (with some exceptions) so I feel good about my starting point.
 
 **What my score says about me: my top ten tags, and whether they describe my taste (about 100 words):**
 
-XXXX
+| tag | score |
+| --- | --- |
+| thought-provoking | 654 |
+| visually appealing | 551 |
+| director: christopher nolan | 484 |
+| sci-fi | 433 |
+| alternate reality | 359 |
+| great acting | 309 |
+| space | 297 |
+| mindfuck movie | 289 |
+| twist ending | 287 |
+| action | 281 |
+
+My top ten tags generally do describe my taste: I love Chris Nolan movies and thrillers and sci-fi, and movies that make you think. There isn't a tag I would necessarily replace and I'd call this a good representation of the types of movies I like to watch. I think it leaves out my love for comedy films but I also didn't really indicate that love in my list of movies.
 
 **What my user viewer shows and why I chose that (about 100 words):**
 
-XXXX
+My viewer just shows my personal top 30 tags and top 9 movies, as well as one movie that it thinks I would like based off what I have rated and what tags are most relevant to that movie. I chose this to keep it fairly focused and conserve tokens (didn't want to view the whole user dataset), and I added the recommender as a piece of utility.
 
 **What I put in the description column for a person, and why (about 150 words):**
 
-XXXX
+I think that a recommended movie really grabs people's attention, and if the tie is between 5 movies that the algorithm thinks they will like, it shouldn't matter which of those gets recommended.
 
 **My criterion for people: what it asks the judge to do that the movie criterion did not (about 60 words):**
 
-XXXX
+My movie criterion was more concerned with semantics and the spelling of the tags themselves while the people criterion is based on preference and opinion.
 
 **The user-tag pairs I chose to judge, how many, and why those (about 100 words):**
 
-XXXX
+I chose these 110 people because I wanted a somewhat representative amount without using $200 of tokens and 9 hours of time.
 
 **Improvement 1: what I changed in the scoring function, what the judge and the viewer showed before and after (about 150 words):**
 
-XXXX
+I chose not to change it because I see only one issue with my score(user, tag) that I would want to fix, and I have no idea how to fix it. I also am not convinced that it's an error with the score rules themselves or simply a personal disagreement on one specific tag. Not trying at all to get out of filling out those sections of part 3, I just genuinely can't think of a way to improve my score at this time.
 
 **Improvement 2: the same (about 150 words):**
 
-XXXX
+See Improvement 1.
 
 ## Part 4. Working with Claude
 

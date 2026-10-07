@@ -89,18 +89,85 @@ def add_me(ratings: pd.DataFrame, mine: pd.DataFrame) -> pd.DataFrame:
 
 # ------------------------------------------------------------------- yours to write ---
 
-def score(ratings: pd.DataFrame, tags: pd.DataFrame, movies: pd.DataFrame):
-    """What tags best describe a user. This one is yours; the handout's Part 3, step 2.
+# The student's rule, from this session:
+#   a movie counts for a person when they rated it at least LIKED;
+#   each counted movie contributes its TOP_N best tags by the Part 2 score() (cleaned tags,
+#   distinct users), and when tags tie across the TOP_N-th place, the whole tie is dropped;
+#   score(user, tag) is the sum of that tag's Part 2 scores over the person's counted movies.
+LIKED = 3.5
+TOP_N = 20
+USERS = None   # the student's call: every user, their own row included
 
-    Return one row per user-tag pair: userId, tag, score, higher meaning the tag describes
-    the user better. Start simply, test it on your own ratings, and improve it twice with
-    what your viewer and your judge show you."""
-    print("score(user, tag) is yours to write")
+
+def movie_top_tags(tags: pd.DataFrame, ratings: pd.DataFrame, movies: pd.DataFrame) -> pd.DataFrame:
+    """movieId, tag, score: each movie's TOP_N best tags by the Part 2 score(). A tie that
+    crosses the TOP_N-th place is dropped whole, so a movie can keep fewer than TOP_N."""
+    from part2_tags import score as movie_score
+    m = movie_score(tags, ratings, movies)
+    # rank "max": a tag's rank is the last place its tie group reaches.
+    last_place = m.groupby("movieId")["score"].rank(method="max", ascending=False)
+    return m[last_place <= TOP_N]
+
+
+def score(ratings: pd.DataFrame, tags: pd.DataFrame, movies: pd.DataFrame):
+    """What tags best describe a user: the student's rule above.
+
+    Returns one row per user-tag pair: userId, tag, score."""
+    liked = ratings[ratings["rating"] >= LIKED]
+    if USERS is not None:
+        liked = liked[liked["userId"].isin(USERS)]
+    top = movie_top_tags(tags, ratings, movies)
+    # Users in chunks, so the user-movie-tag join never sits in memory all at once.
+    users = liked["userId"].unique()
+    parts = []
+    for start in range(0, len(users), 2000):
+        chunk = liked[liked["userId"].isin(users[start:start + 2000])]
+        pairs = chunk[["userId", "movieId"]].merge(top, on="movieId")
+        parts.append(pairs.groupby(["userId", "tag"])["score"].sum().reset_index())
+    return pd.concat(parts, ignore_index=True)
+
+
+# judge/users.csv, by the student's rules:
+#   people: 109 drawn at random (seed JUDGE_SEED) from users with at least one movie rated
+#   LIKED or higher, plus me;
+#   description: the person's recommended movie, by the user viewer's rule (their top
+#   RECOMMEND_FROM tags against the top TOP_N tags of each movie they have not rated, most
+#   matches wins), its title as movies.csv writes it; a tie is broken by a seeded random pick;
+#   tags: the person's top JUDGE_TAGS tags by score(user, tag).
+JUDGE_SEED = 440
+JUDGE_PEOPLE = 109
+RECOMMEND_FROM = 30
+JUDGE_TAGS = 5
+
+
+def write_users_csv(ratings, tags, movies):
+    import numpy as np
+    global USERS
+    pool = np.sort(ratings.loc[(ratings["rating"] >= LIKED) & (ratings["userId"] != ME), "userId"].unique())
+    picked = list(pd.Series(pool).sample(JUDGE_PEOPLE, random_state=JUDGE_SEED)) + [ME]
+    USERS = picked
+    s = score(ratings, tags, movies).sort_values(["userId", "score", "tag"], ascending=[True, False, True])
+    USERS = None
+    top = s.groupby("userId").head(RECOMMEND_FROM)
+    movie_tags = movie_top_tags(tags, ratings, movies)
+    seen = ratings.loc[ratings["userId"].isin(picked), ["userId", "movieId"]].assign(seen=1)
+    x = top[["userId", "tag"]].merge(movie_tags[["movieId", "tag"]], on="tag")
+    x = x.merge(seen, on=["userId", "movieId"], how="left")
+    c = x[x["seen"].isna()].groupby(["userId", "movieId"]).size().rename("n").reset_index()
+    leaders = c[c["n"] == c.groupby("userId")["n"].transform("max")].sort_values(["userId", "movieId"])
+    rng = np.random.default_rng(JUDGE_SEED)
+    pick = leaders.groupby("userId")["movieId"].apply(lambda ids: ids.iloc[rng.integers(len(ids))])
+    titles = movies.set_index("movieId")["title"]
+    tied = int((leaders.groupby("userId").size() > 1).sum())
+    rows = [{"id": u, "description": titles[pick[u]],
+             "tags": "|".join(s.loc[s["userId"] == u, "tag"].head(JUDGE_TAGS))} for u in picked]
+    out = pd.DataFrame(rows)
+    out.to_csv(REPO / "judge" / "users.csv", index=False)
+    print(f"wrote judge/users.csv: {len(out)} people, {out['tags'].str.count('[|]').add(1).sum()} tags "
+          f"to rate; {tied} recommendations broken from a tie")
 
 
 def part3_users(ratings, tags, movies, links):
-    print("part 3 unimplemented")  # delete this line when you start
-
     print("== (1) my ratings ==")
     mine, skipped = read_my_ratings()
     print(f'{len(mine)} rating(s) read from the "{SLOT}" slot in WRITEUP.md.')
@@ -118,7 +185,14 @@ def part3_users(ratings, tags, movies, links):
         print(f"{len(ratings):,} ratings, none of them yours yet.")
 
     print("== (2) score(user, tag) ==")
-    score(ratings, tags, movies)
+    scores = score(ratings, tags, movies)
+    me = scores[scores["userId"] == ME].sort_values(["score", "tag"], ascending=[False, True])
+    print(f"my ten best tags (userId {ME}):")
+    print(me.head(10).to_string(index=False))
+    print(f"over every user: {len(scores):,} rows, {scores['userId'].nunique():,} distinct users")
+
+    print("== (3) judge/users.csv ==")
+    write_users_csv(ratings, tags, movies)
 
 
 if __name__ == "__main__":
