@@ -167,19 +167,30 @@ def list_html(tags):
     return "<ol>%s</ol>" % "".join("<li>%s</li>" % html.escape(t) for t in tags)
 
 
+def criterion():
+    path = REPO / "judge" / "criterion.md"
+    return path.read_text(encoding="utf-8").strip() if path.exists() else "(judge/criterion.md not found)"
+
+
 def render(movies):
     """Build the page."""
     head = "<title>Results Viewer v0</title>\n<style>\n%s\n</style>" % CSS
     body = ["<h1>Results Viewer</h1>", "<p>%s</p>" % html.escape(DEFINITION)]
-    for movie in movies:
+    # The criterion the judge rated against, read from the file the judge read.
+    body += ["<h3>The judge's criterion (judge/criterion.md)</h3>",
+             "<blockquote>%s</blockquote>" % html.escape(criterion())]
+    # An index at the top, one link per movie, so any movie is one click away.
+    body += ["<h3>Movies on this page</h3>",
+             "<ol>%s</ol>" % "".join('<li><a href="#movie-%d">%s</a></li>' % (i, html.escape(m["title"]))
+                                     for i, m in enumerate(movies))]
+    for i, movie in enumerate(movies):
         body += [
-            "<h2>%s</h2>" % html.escape(movie["title"]),
+            '<h2 id="movie-%d">%s</h2>' % (i, html.escape(movie["title"])),
+            '<p><a href="#top">back to the index</a></p>',
             "<h3>By count</h3>", list_html(movie["counts"]),
             "<h3>Your order</h3>", list_html(movie["mine"]),
             "<h3>The judge's order</h3>", list_html(movie["judge"]),
             "<h3>Your score()</h3>", list_html(movie["score"]),
-            "<h3>Tags on this movie</h3>",
-            table_html(["Tag", "User", "Date"], movie["apps"]),
             "<p>%d applications by %d people.</p>" % (len(movie["apps"]), movie["people"]),
             "<h3>Biggest disagreements, score() against the judge</h3>",
             table_html(["Tag", "score() rank", "Judge rank"], movie["gaps"]),
@@ -187,7 +198,7 @@ def render(movies):
     body = "\n".join(body)
     return ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            + head + "\n</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+            + head + "\n</head>\n<body id=\"top\">\n" + body + "\n</body>\n</html>\n")
 
 
 def table_text(headers, rows):
@@ -210,15 +221,15 @@ def numbered(tags):
 
 
 def render_text(movies):
-    out = ["Results Viewer", DEFINITION, ""]
+    out = ["Results Viewer", DEFINITION, "", "The judge's criterion (judge/criterion.md)",
+           "  " + criterion(), "", "Movies on this page"]
+    out += ["  %2d. %s" % (i, m["title"]) for i, m in enumerate(movies, 1)] + [""]
     for movie in movies:
         out += [movie["title"],
                 "  By count", numbered(movie["counts"]),
                 "  Your order", numbered(movie["mine"]),
                 "  The judge's order", numbered(movie["judge"]),
                 "  Your score()", numbered(movie["score"]),
-                "  Tags on this movie",
-                table_text(["Tag", "User", "Date"], movie["apps"]),
                 "  %d applications by %d people." % (len(movie["apps"]), movie["people"]),
                 "  Biggest disagreements, score() against the judge",
                 table_text(["Tag", "score() rank", "Judge rank"], movie["gaps"]), ""]

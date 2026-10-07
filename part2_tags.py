@@ -83,6 +83,7 @@ and what it must write:
         disagreements mean, is your paragraph in `WRITEUP.md`.
 """
 
+import re
 from pathlib import Path
 
 import matplotlib
@@ -90,10 +91,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from agreement import my_order_lines
 from load_data import load_all
 
 MY_MOVIE = 68157   # Inglourious Basterds (2009)
-FIGURES = Path(__file__).resolve().parent / "figures"
+REPO = Path(__file__).resolve().parent
+FIGURES = REPO / "figures"
 
 
 def plot_when(when, title):
@@ -177,6 +180,20 @@ def score(tags_df, ratings_df, movies_df):
     return out.rename(columns={"clean": "tag"})
 
 
+def judge_pairs(tags_df):
+    """Every movie and tag the judge is asked about: judge/movies.csv, plus the vocabulary tags
+    on each movie in the "My ten movies" slot, matched after stripping and lowercasing."""
+    shipped = pd.read_csv(REPO / "judge" / "movies.csv", keep_default_na=False)
+    pairs = shipped.assign(tag=shipped["tags"].str.split("|")).explode("tag")
+    pairs = pairs.rename(columns={"id": "movieId"})[["movieId", "tag"]]
+    slot = (REPO / "WRITEUP.md").read_text(encoding="utf-8").split("**My ten movies")[-1]
+    mine = [int(n) for n in re.findall(r"^\s*(\d+)", slot.split("\n**")[0], re.M)]
+    words = {w.strip() for w in (REPO / "judge" / "vocabulary.txt").read_text().splitlines()}
+    on_mine = (tags_df.assign(tag=tags_df["tag"].str.strip().str.lower())
+               .query("movieId in @mine and tag in @words")[["movieId", "tag"]])
+    return pd.concat([pairs, on_mine]).drop_duplicates().reset_index(drop=True)
+
+
 def part2_tags(ratings, tags, movies, links):
     print("== (1) the obvious answer ==")
     title = movies.set_index("movieId").loc[MY_MOVIE, "title"]
@@ -241,8 +258,39 @@ def part2_tags(ratings, tags, movies, links):
               f"{len(parts)} raw strings, e.g. " + ", ".join(f"{s!r} {n}" for s, n in parts.head(6).items()))
 
     print("== (5) scores.csv ==")
+    asked = judge_pairs(tags)
+    # Each asked tag is a stripped, lowercased vocabulary string. It takes the score of the
+    # cleaned tag its raw strings became on that movie, so "black comedy" scores as "dark comedy".
+    # If its raw strings landed in more than one cleaned tag, the highest score is kept.
+    c = cleaned.assign(key=cleaned["tag"].str.strip().str.lower())
+    c = c.merge(asked, left_on=["movieId", "key"], right_on=["movieId", "tag"], suffixes=("_raw", ""))
+    c = c[["movieId", "tag", "clean"]].drop_duplicates()
+    c = c.merge(scores.rename(columns={"tag": "clean"}), on=["movieId", "clean"])
+    out = c.groupby(["movieId", "tag"])["score"].max().reset_index()
+    out.to_csv(REPO / "scores.csv", index=False)
+    print(f"movie-tag pairs asked for: {len(asked):,}   written to scores.csv: {len(out):,}")
 
     print("== (6) the four rankings ==")
+    slot = (REPO / "WRITEUP.md").read_text(encoding="utf-8").split("**My ten movies")[-1]
+    mine = [int(n) for n in re.findall(r"^\s*(\d+)", slot.split("\n**")[0], re.M)]
+    orders = my_order_lines()
+    judged = pd.read_csv(REPO / "judge" / "ratings_movies.csv", keep_default_na=False)
+    titles = movies.set_index("movieId")["title"]
+    for movie in mine:
+        print(f"\n#### {titles[movie]} ({movie})")
+        counts = tags.loc[tags["movieId"] == movie, "tag"].value_counts().head(10)
+        j = judged[judged["id"] == movie].sort_values(["rating", "tag"], ascending=[False, True])
+        sc = out[out["movieId"] == movie].sort_values(["score", "tag"], ascending=[False, True])
+        lists = [
+            ("the counts (raw strings, ten most-used)", [f"{t} ({n})" for t, n in counts.items()]),
+            ("my own order", orders.get(movie, ["(no line in the slot)"])),
+            ("the judge's order (ties alphabetical)", [f"{t} ({r})" for t, r in zip(j["tag"], j["rating"])]),
+            ("my score() order (ties alphabetical)", [f"{t} ({v})" for t, v in zip(sc["tag"], sc["score"])]),
+        ]
+        for heading, items in lists:
+            print(f"-- {heading} --")
+            for place, item in enumerate(items, 1):
+                print(f"  {place:>2}. {item}")
 
 
 if __name__ == "__main__":

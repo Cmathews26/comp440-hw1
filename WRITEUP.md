@@ -48,7 +48,7 @@ Code: `part2_tags.py`.
 
 **Its most misleading tag in the count-ordered list, and why it misleads:** I don't think any of the tags are misleading as they all accurately describe the film, but I'd say black comedy and dark comedy are redundant and could be combined into one tag.
 
-**What I learned about how MovieLens collects ratings and tags, from rating and tagging my movie myself (about 100 words):** XXXX
+**What I learned about how MovieLens collects ratings and tags, from rating and tagging my movie myself (about 100 words):** It's interesting that when you enter a tag in MovieLens, it removes the tag from view on your page presumably in an attempt to not have people repeating tags. With that being said, it would be extremely easy for one person to just repeat a tag over and over again and legitimately affect the dataset. The ratings, on the other hand, are far harder to influence if you're just one person, as the site locks you in at one rating per movie.
 
 ### Up close
 
@@ -106,9 +106,9 @@ An order line looks like `296: nonlinear, hit men, dark comedy, ...`, the tags b
 109487: sci-fi, time travel, relativity, visually appealing, physics, Christopher Nolan, artificial intelligence, good science, thought-provoking
 923: melancholy, mystery, masterpiece, atmospheric, classic, Orson Welles, cinematography, Amazing Cinematography, black and white, Highly quotable
 
-**One criterion I considered for the judge and rejected, and why** (the one I used is in `judge/criterion.md`)**:** XXXX
+**One criterion I considered for the judge and rejected, and why** (the one I used is in `judge/criterion.md`)**:** I didn't really consider another criterion for the judge. To me, this is the best way to sort the tags.
 
-**Agreement. The number `agreement.py` gives for your `score()`, for popularity and for your own order, and which of the three came closest to the judge:** XXXX
+**Agreement. The number `agreement.py` gives for your `score()`, for popularity and for your own order, and which of the three came closest to the judge:** 3.88, 3.87, and 4.40. So my own order was closest to the judge.
 
 **How the judge skill is built: the files it is made of and what each one does (about 150 words):**
 
@@ -124,28 +124,28 @@ XXXX
 
 ### The viewer and the disagreements
 
-**One thing `movie_results.html` showed me that was useful, and one thing about it that got in my way:** XXXX
+**One thing `movie_results.html` showed me that was useful, and one thing about it that got in my way:** I think that the column showing the biggest discrepancy between my score() and the judges was really useful, but the huge tables of scores for tags kind of got in my way.
 
 Then three improvements. For each: what the page would not let you see, what you had Claude
 change, and what the changed page shows that the first draft did not.
 
-**Improvement 1:** XXXX
+**Improvement 1:** The page wouldn't let me easily see all the movies listed, I had you take out the long tables for readibility, and now the draft is much more digestible.
 
-**Improvement 2:** XXXX
+**Improvement 2:** Couldn't easily jump to a movie so I had claude add an index so that a viewer can easily navigate the html.
 
-**Improvement 3:** XXXX
+**Improvement 3:** I had claude add the judge criteria because I had no basis for how the judge was ranking these tags.
 
 Then the three disagreements. A disagreement is a movie and a tag where your `score()` and the
 judge are furthest apart. For each: the movie and the tag, where your `score()` put it and where
 the judge put it, and what you think accounts for the gap.
 
-**Disagreement 1:** XXXX
+**Disagreement 1:** The Dark Knight, Morgan Freeman. 9 and 45. Morgan Freeman is one of those actors that you can identify a movie from so I had him higher than the judge.
 
-**Disagreement 2:** XXXX
+**Disagreement 2:** Goodfellas, Robert De Niro 3 vs 36, Same reasoning as Dark Knight and Morgan Freeman. De Niro is a guy that could identify a movie for some people.
 
-**Disagreement 3:** XXXX
+**Disagreement 3:** Inglorious Basterds, Quentin Tarantino, 1 and 46. Similar reasoning, the most defining characteristic of Tarantino's films are that he directed them.
 
-**One other high-level pattern in the results, and what you think is behind it:** XXXX
+**One other high-level pattern in the results, and what you think is behind it:** A strange pattern is that the judge's lists are largely alphabetical, but I'm not sure whats behind it. There were so many ties that some lists ended up differing to mainly alphabetical.
 
 ## Predictions revisited
 
