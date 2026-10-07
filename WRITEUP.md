@@ -232,17 +232,17 @@ Give these to Claude the way you gave it the rest. Graded on the catch and the c
 making Claude look good or bad.
 
 **A moment where Claude was wrong or overconfident, how you caught it, and where it
-happened. Name the part and the step, so the moment can be found:** XXXX
+happened. Name the part and the step, so the moment can be found:** When claude miscounted a list of movies in part 3 and it caught itself before I could catch it because the information ended up being inconsequential.
 
-**One call where you overrode Claude, and why:** XXXX
+**One call where you overrode Claude, and why:** I overrode claude in the last section when it continued to ask me for changes to the judge viewing section and I didn't feel that any were necessary or possible for me.
 
-**What you would hand to Claude sooner next time:** XXXX
+**What you would hand to Claude sooner next time:** Nothing comes to mind.
 
-**Did Claude name the misleading tag in Part 2 step 1 before you did? What happened:** XXXX
+**Did Claude name the misleading tag in Part 2 step 1 before you did? What happened:** Claude never named a tag as misleading. It only identified some that I should take a second look at and I was able to instruct it about redundancy from there.
 
 **The figure. Would asking Claude "what does this show?" have produced your sentence, and what
-would have been missing from it:** XXXX
+would have been missing from it:** Asking claude "What does this show" would not have produced my sentence because I was more focused on the findings and interpretation of the results of the graph and claude was more focused on axes, descriptive features.
 
-**Hours spent:** XXXX
+**Hours spent:** 5 ish
 
-**Anyone who helped you, or "no one":** XXXX
+**Anyone who helped you, or "no one":** No help
