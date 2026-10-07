@@ -82,11 +82,29 @@ An order line looks like `296: nonlinear, hit men, dark comedy, ...`, the tags b
 
 **My ten movies:**
 
-XXXX
+79132, Inception (2010)
+6936, Elf (2003)
+58559, Dark Knight, The (2008)
+1213, Goodfellas (1990)
+2028, Saving Private Ryan (1998)
+1704, Good Will Hunting (1997)
+68157, Inglourious Basterds (2009)
+55820, No Country for Old Men (2007)
+109487, Interstellar (2014)
+923, Citizen Kane (1941)
 
 **My own order of the ten most-used tags, written before looking at any data: my movie from step 1, then my nine others from step 4:**
 
 68157: Quentin Tarantino, dark comedy, World War II, alternate history, black comedy, satire, great acting, Brad Pitt, Christoph Waltz, visually appealing
+79132: sci-fi, Leonardo DiCaprio, surreal, visually appealing
+6936: Will Ferrell, comedy, Christmas, christmas, funny, cute, New York City, Zooey Deschanel, Peter Dinklage
+58559: Batman, action, thriller, superhero, dark, Heath Ledger, Christian Bale, Christopher Nolan, Morgan Freeman, psychology
+1213: crime, gangsters, mafia, organized crime, Robert De Niro, Martin Scorsese, gritty, good dialogue
+2028: World War II, war, action, history, historical, horrors of war, Steven Spielberg, Tom Hanks, cinematography
+1704: feel-good, inspirational, Robin Williams, Matt Damon, intelligent, mathematics, psychology, genius, excellent script, mentor
+55820: serial killer, suspense, thriller, tension, atmospheric, Coen Brothers, Tommy Lee Jones, dark, twist ending, great acting
+109487: sci-fi, time travel, relativity, visually appealing, physics, Christopher Nolan, artificial intelligence, good science, thought-provoking
+923: melancholy, mystery, masterpiece, atmospheric, classic, Orson Welles, cinematography, Amazing Cinematography, black and white, Highly quotable
 
 **One criterion I considered for the judge and rejected, and why** (the one I used is in `judge/criterion.md`)**:** XXXX
 
