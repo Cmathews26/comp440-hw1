@@ -112,15 +112,15 @@ An order line looks like `296: nonlinear, hit men, dark comedy, ...`, the tags b
 
 **How the judge skill is built: the files it is made of and what each one does (about 150 words):**
 
-XXXX
+README is a guide to the judge; system.md is the fixed system prompt that tells Claude to apply criteria, criterion.md is my definition of what best describes a movie, judge.py is the loop that runs the judge itself, movies.csv is the 100 movies that the judge rates, and vocabulary.txt is the list of tags.
 
 **What happens when I run `/judge`, from the first check to the CSV (about 150 words):**
 
-XXXX
+The judge sends each movie to its own isolated Claude session with a fixed system prompt plus my criterion as a user prompt, and the movie's title/year/genre as well as its vocabulary tags in alphabetical order without counts. It goes through and asks for a 1-5 rating for each tag then goes back through and re asks if any scores are missing.
 
 **Why a skill: what a skill like this gives you that a script or a prompt alone does not, and where you would use one next (about 100 words):**
 
-XXXX
+A prompt or script are instructions with no memory whereas a skill can repeat tasks with minor differences or with some variation. I would use a skill to send out networking emails because they're all more or less the same with some slight variation.
 
 ### The viewer and the disagreements
 
@@ -149,7 +149,7 @@ the judge put it, and what you think accounts for the gap.
 
 ## Predictions revisited
 
-**Which of my three predictions were wrong, and what I make of each miss:** XXXX
+**Which of my three predictions were wrong, and what I make of each miss:** The top three tags and my 15/100 taggers per raters were wrong. I just didn't have a real frame of reference for these predictions.
 
 ## Part 3. What tags best describe a user?
 
